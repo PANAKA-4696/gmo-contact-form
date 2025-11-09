@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+//'input', 'confirm', 'complete' の3つの画面状態を定義する型
+type ScreenState = 'input' | 'confirm' | 'complete';
 
 function App() {
-  const [count, setCount] = useState(0)
+  //useStateで現在の画面状態を管理します。初期値は 'input' です。
+  const [screenState, setScreen] = useState<ScreenState>('input');
+  
+  return(
+    <div className="container">
+      {/* screen の状態が 'input' の場合に表示する内容 */}
+      {screen === "input" && (
+        <>
+          <h1>お問い合わせフォーム</h1>
+          <p>こちらは○○に関するお問い合わせフォームです。</p>
+          {/* TODO: ここに入力フォームコンポーネント <InputForm /> を後で配置 */}
+        </>
+        )}
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        {/* screen の状態が 'confirm' の場合に表示する内容 */}
+        {screen === "confirm" && (
+          <>
+            <h1>お問い合わせフォーム</h1>
+            <p>入力内容にお間違いないかご確認ください。</p>
+            {/* TODO: ここに確認画面コンポーネント <ConfirmForm /> を後で配置 */}
+          </>
+        )}
+
+        {/* screen の状態が 'complete' の場合に表示する内容 */}
+        {screen === "complete" && (
+          <>
+            <h1>お問い合わせフォーム</h1>
+            <p>お問い合わせが送信されました。</p>
+            {/* TODO: ここに完了画面コンポーネント <CompleteForm /> を後で配置 */}
+          </>
+        )}
+    </div>
+  );
 }
 
-export default App
+export default App;
