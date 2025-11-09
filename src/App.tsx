@@ -5,7 +5,7 @@ type ScreenState = 'input' | 'confirm' | 'complete';
 
 function App() {
   //useStateで現在の画面状態を管理します。初期値は 'input' です。
-  const [screenState, setScreen] = useState<ScreenState>('input');
+  const [screen, setScreen] = useState<ScreenState>('input');
   
   return(
     <div className="container">
