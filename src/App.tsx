@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-//'input', 'confirm', 'complete' の3つの画面状態を定義する型
+//'input', 'confirm', 'complete' の3つのどの画面を表示しているかを管理するための「型」
 type ScreenState = 'input' | 'confirm' | 'complete';
 
 function App() {
