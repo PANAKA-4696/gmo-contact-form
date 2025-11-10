@@ -1,4 +1,7 @@
 import { useState } from "react";
+import InputForm from './components/InputForm'; // InputForm をインポート
+import { FormData } from './types'; // FormData 型をインポート
+import './App.css'; // あとでCSSを当てるためにCSSファイルをインポート
 
 //'input', 'confirm', 'complete' の3つのどの画面を表示しているかを管理するための「型」
 type ScreenState = 'input' | 'confirm' | 'complete';
