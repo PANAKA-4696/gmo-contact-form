@@ -1,6 +1,9 @@
-//フォームのデータ型をインポートします
+//useEffectをreactからインポートします。
+import { useEffect } from 'react';
 //フォームのデータ型をインポートします
 import type { ContactFormData } from '../types';
+//作成したデータファイルをインポートします
+import { serviceOptions, serviceNames } from '../data';
 
 //App.tsxから受け取るprops(引数)の型を定義します
 interface InputFormProps {
@@ -11,6 +14,18 @@ interface InputFormProps {
 
 //React.FC (Functional Component) 型を使い、props を受け取ります
 const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }) => {
+    //サービスが変更されたときの副作用を定義します
+    useEffect(() => {
+        //サービスが変更されたら(特に「サービスA」→「サービスB」など)
+        //関連するカテゴリーとプランの選択をリセットする
+        setFormData((prevData) => ({
+            ...prevData,
+            category: '',//カテゴリーをリセット
+            plans: [],//プランをリセット
+        }));
+    //formData.serviceが変更されるたびに、この中が実行される
+    },[formData.service, setFormData]); //setFormDataも依存配列に追加しておく(ESLint推奨)
+
     //<input>, <textarea>, <select> が変更されたときに呼ばれる汎用的な関数
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -48,6 +63,10 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
         onSubmit(); //App.tsx から渡された onSubmit 関数（バリデーション＆画面遷移）を呼び出す
     };
 
+    //現在選択されているサービスに対応する選択肢を取得します
+    //formData.service が"サービスA"など、有効なキーであることを型アサーションで伝えます。
+    const currentOptions = serviceOptions[formData.service as keyof typeof serviceOptions];
+
     return (
         <form onSubmit={handleSubmit}>
             {/* 氏名 */}
@@ -74,56 +93,62 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                 />
             </div>
 
-            {/* サービス (ドロップダウン) [cite: 106] */}
+            {/* サービス (ドロップダウン) を data.ts から動的に生成します */}
             <div>
                 <label>サービス <span>[必須]</span></label>
-                <select name="service" value={formData.service} onChange={handleChange}>
-                <option value="">選択してください</option>
-                <option value="サービスA">サービスA</option>
-                <option value="サービスB">サービスB</option>
-                <option value="サービスC">サービスC</option>
+                <select name ="service" value={formData.service} onChange={handleChange}>
+                    <option value="">選択してください</option>
+
+                    {/* serviceNames配列を.map()で<option>タグに変換 */}
+                    {serviceNames.map((serviceName) => (
+                        <option key={serviceName} value={serviceName}>
+                            {serviceName}
+                        </option>
+                    ))}
                 </select>
             </div>
 
-            {/* TODO: ステップ5
-                カテゴリーとプランの表示を、選択されたサービスに応じて動的に変更する
-            */}
-
-            {/* カテゴリー (ラジオボタン) [cite: 29, 30, 31, 61, 62, 63] */}
+            {/* カテゴリー (ラジオボタン) を動的に生成します */}
             <div>
                 <label>カテゴリー <span>[必須]</span></label>
                 <div>
-                <label>
-                    <input type="radio" name="category" value="カテゴリー1" checked={formData.category === 'カテゴリー1'} onChange={handleChange} />
-                    カテゴリー1
-                </label>
-                <label>
-                    <input type="radio" name="category" value="カテゴリー2" checked={formData.category === 'カテゴリー2'} onChange={handleChange} />
-                    カテゴリー2
-                </label>
-                <label>
-                    <input type="radio" name="category" value="カテゴリー3" checked={formData.category === 'カテゴリー3'} onChange={handleChange} />
-                    カテゴリー3
-                </label>
+                    {/* サービスが選択されていて(currentOptionsが存在し)、currentOptions.categories があれば、それを .map() でラジオボタンに変換 */}
+                    {currentOptions?.categories.map((category) => (
+                        <label key={category}>
+                            <input
+                            type="radio"
+                            name='category'
+                            value={category}
+                            checked={formData.category === category}
+                            onChange={handleChange}
+                            />
+                            {category}
+                        </label>
+                    ))}
+                    {/* サービスが未選択の場合の表示 (任意) */}
+                    {!formData.service && <p style={{ color: 'gray', margin: 0}}>サービスを選択してください</p>}
                 </div>
             </div>
 
-            {/* プラン (チェックボックス) [cite: 33, 34, 35, 65, 67, 68] */}
+            {/* プラン (チェックボックス) を動的に生成します */}
             <div>
                 <label>プラン</label>
                 <div>
-                <label>
-                    <input type="checkbox" name="plans" value="プランa" checked={formData.plans.includes('プランa')} onChange={handlePlanChange} />
-                    プランa
-                </label>
-                <label>
-                    <input type="checkbox" name="plans" value="プランb" checked={formData.plans.includes('プランb')} onChange={handlePlanChange} />
-                    プランb
-                </label>
-                <label>
-                    <input type="checkbox" name="plans" value="プランc" checked={formData.plans.includes('プランc')} onChange={handlePlanChange} />
-                    プランc
-                </label>
+                    {/* カテゴリーと同様に、currentOptions.plansを.map()でチェックボックスに変換 */}
+                    {currentOptions?.plans.map((plan) => (
+                        <label key={plan}>
+                            <input
+                            type="checkbox"
+                            name='plans' //name属性はhandlePlanChangeでは使いませんが、フォーム要素として一応設定
+                            value={plan}
+                            checked={formData.plans.includes(plan)}
+                            onChange={handlePlanChange}
+                            />
+                            {plan}
+                        </label>
+                    ))}
+                    {/* サービスが未選択の場合の表示 (任意) */}
+                    {!formData.service && <p style={{ color: 'gray', margin: 0 }}>サービスを選択してください</p>}
                 </div>
             </div>
 
