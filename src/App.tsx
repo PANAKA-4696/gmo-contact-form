@@ -1,13 +1,13 @@
 import { useState } from "react";
 import InputForm from './components/InputForm'; // InputForm をインポート
-import { FormData } from './types'; // FormData 型をインポート
+import type { ContactFormData } from './types'; // ContactFormData 型をインポート
 import './App.css'; // あとでCSSを当てるためにCSSファイルをインポート
 
 //'input', 'confirm', 'complete' の3つのどの画面を表示しているかを管理するための「型」
 type ScreenState = 'input' | 'confirm' | 'complete';
 
 //フォームデータの初期値
-const initiakFormData: FormData = {
+const initialFormData: ContactFormData = {
   name: '',
   email: '',
   service: '',
@@ -21,10 +21,10 @@ function App() {
   const [screen, setScreen] = useState<ScreenState>('input');
 
   //フォームの入力内容全体をApp.tsx(親コンポーネント)で管理する
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
   //確認画面に進むときの処理[cite: 77]
-  const handlecConfirm = () => {
+  const handleConfirm = () => {
     //TODO: ここでバリデーションチェックを行う
     console.log("Form Data Submitted:", formData); //ひとまずコンソールに入力内容を表示
     setScreen('confirm');

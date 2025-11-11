@@ -1,5 +1,5 @@
 // お問い合わせフォームのデータ構造を定義する「型」
-export interface FormData {
+export interface ContactFormData {
   name: string;      // 氏名
   email: string;     // メールアドレス
   service: string;   // サービス（選択されるのは1つ）

@@ -1,10 +1,11 @@
 //フォームのデータ型をインポートします
-import { FormData } from '../types';
+//フォームのデータ型をインポートします
+import type { ContactFormData } from '../types';
 
 //App.tsxから受け取るprops(引数)の型を定義します
 interface InputFormProps {
-    fromData: FormData; //現在のフォームの入力内容
-    setFormData: React.Dispatch<React.SetStateAction<FormData>>; //フォームの内容を更新するための関数
+    formData: ContactFormData; //現在のフォームの入力内容
+    setFormData: React.Dispatch<React.SetStateAction<ContactFormData>>; //フォームの内容を更新するための関数
     onSubmit: () => void; //フォーム送信（確認画面へ進む）ボタンが押されたときに呼ぶ関数
 }
 
