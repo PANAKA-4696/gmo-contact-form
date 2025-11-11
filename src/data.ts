@@ -5,7 +5,7 @@ export const serviceOptions = {
         plans: ["プランa", "プランb", "プランc"],
     },
     "サービスB": {
-        cattegories: ["カテゴリー4", "カテゴリー5", "カテゴリー6"],
+        categories: ["カテゴリー4", "カテゴリー5", "カテゴリー6"],
         plans: ["プランd", "プランe", "プランf"],
     },
     "サービスC": {
