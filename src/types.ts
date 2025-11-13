@@ -7,3 +7,8 @@ export interface ContactFormData {
   plans: string[];   // プラン（複数選択可 [cite: 66] なので配列）
   content: string;   // お問い合わせ内容
 }
+
+// エラーメッセージを格納するオブジェクトの「型」
+// Partial<T> は「T のすべてのプロパティをオプショナル（?）にする」という意味
+// { name?: string, email?: string, ... } という型になります
+export type FormErrrors = Partial<ContactFormData>;
