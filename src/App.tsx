@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputForm from './components/InputForm'; // InputForm をインポート
-import { FormErrrors, type ContactFormData } from './types'; // ContactFormData 型をインポート
+import { FormErrors, type ContactFormData } from './types'; // ContactFormData 型をインポート
 import './App.css'; // あとでCSSを当てるためにCSSファイルをインポート
 
 //'input', 'confirm', 'complete' の3つのどの画面を表示しているかを管理するための「型」
@@ -24,11 +24,11 @@ function App() {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
   //エラーメッセージを保持するためのstateを追加します
-  const [errors, setErrors] = useState<FormErrrors>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   //バリデーションを実行する関数を作成します
   const validateForm = (): boolean => {
-    const newErrors: FormErrrors = {};
+    const newErrors: FormErrors = {};
 
     //必須項目のチェック
     if (!formData.name) newErrors.name = '氏名は必須です。';
@@ -78,7 +78,7 @@ function App() {
             setFormData={setFormData} // 内容を更新する関数を props として渡す
             onSubmit={handleConfirm}  // 送信ボタンが押されたときの関数を props として渡す
             //errors state をInputForm に渡します
-            error={errors}
+            errors={errors}
           />
         </>
       )}
