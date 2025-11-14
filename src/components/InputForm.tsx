@@ -1,7 +1,7 @@
 //useEffectをreactからインポートします。
 import { useEffect } from 'react';
-//フォームのデータ型をインポートします
-import type { ContactFormData } from '../types';
+//フォームのデータ型をインポートします FormErrors型をインポートします
+import type { ContactFormData, FormErrors } from '../types';
 //作成したデータファイルをインポートします
 import { serviceOptions, serviceNames } from '../data';
 
@@ -10,8 +10,12 @@ interface InputFormProps {
     formData: ContactFormData; //現在のフォームの入力内容
     setFormData: React.Dispatch<React.SetStateAction<ContactFormData>>; //フォームの内容を更新するための関数
     onSubmit: () => void; //フォーム送信（確認画面へ進む）ボタンが押されたときに呼ぶ関数
+    
+    //errorsをpropsとして受け取れるようにします。
+    errors: FormErrors;
 }
 
+//propsからerrorsを受け取ります
 //React.FC (Functional Component) 型を使い、props を受け取ります
 const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }) => {
     //サービスが変更されたときの副作用を定義します
@@ -79,6 +83,9 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                 onChange={handleChange} //入力されたら handleChange を呼ぶ
                 placeholder="山田太郎"
                 />
+
+                {/* エラーがあれば<p>タグで表示します */}
+                {errors.name && <p className="error-message">{errors.name}</p>}
             </div>
 
             {/* メールアドレス */}
@@ -91,6 +98,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                 onChange={handleChange}
                 placeholder="mail@example.com"
                 />
+                {errors.email && <p className="error-message">{errors.email}</p>}
             </div>
 
             {/* サービス (ドロップダウン) を data.ts から動的に生成します */}
@@ -106,6 +114,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                         </option>
                     ))}
                 </select>
+                {errors.service && <p className="error-message">{errors.service}</p>}
             </div>
 
             {/* カテゴリー (ラジオボタン) を動的に生成します */}
@@ -128,6 +137,8 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                     {/* サービスが未選択の場合の表示 (任意) */}
                     {!formData.service && <p style={{ color: 'gray', margin: 0}}>サービスを選択してください</p>}
                 </div>
+                {/* ラジオボタンはグループ全体で1つのエラーを表示 */}
+                {errors.category && <p className="error-message">{errors.category}</p>}
             </div>
 
             {/* プラン (チェックボックス) を動的に生成します */}
@@ -162,6 +173,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }
                 placeholder="お問い合わせ内容をご記入ください。"
                 rows={5}
                 />
+                {errors.content && <p className="error-message">{errors.content}</p>}
             </div>
 
             {/* 送信ボタン [cite: 38, 76] */}
