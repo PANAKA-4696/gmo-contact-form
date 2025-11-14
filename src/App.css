@@ -1,0 +1,13 @@
+.error-message {
+    color: red; /* エラーメッセージを赤色に */
+    font-size: 0.9em;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+/* エラーがある入力欄の枠線を赤くする (任意・少し高度) */
+/* InputForm.tsx で <input className={errors.name ? 'input-error' : ''} ... /> のようにクラス名を動的に追加する必要があります */
+.input-error {
+    border-color: red;
+    outline-color: red;
+}
