@@ -11,4 +11,4 @@ export interface ContactFormData {
 // エラーメッセージを格納するオブジェクトの「型」
 // Partial<T> は「T のすべてのプロパティをオプショナル（?）にする」という意味
 // { name?: string, email?: string, ... } という型になります
-export type FormErrrors = Partial<ContactFormData>;
+export type FormErrors = Partial<ContactFormData>;
