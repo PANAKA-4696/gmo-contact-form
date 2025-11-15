@@ -1,31 +1,69 @@
-/* アプリ全体のコンテナ(中央寄せ・幅設定) */
-.container {
+/* --- 1. グローバルと青いヘッダー --- */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f9f9f9; /* 背景を少しグレーに（任意） */
+}
+
+/* 青色のタイトルバー */
+.app-header {
+    background-color: #5598d9; /* PDFの青色を再現 */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em; /* 24px */
+    font-weight: bold;
+}
+
+/* 各画面のコンテンツを中央寄せするコンテナ */
+.page-content {
     max-width: 700px; /* フォームの最大幅 */
     margin: 40px auto; /* 上下にマージン・左右中央寄せ */
     padding: 24px;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* フォームの格入力項目(div) */
+/* 確認画面・完了画面は白背景で、枠線・影なしにする */
+.confirm-container,
+.complete-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+/* --- 2. フォームのスタイル --- */
 form > div {
-    margin-bottom: 20px; /* 各項目の間隔 */
+    margin-bottom: 24px; /* 各項目の間隔を少し広げる */
 }
 
-/* ラベル内の[必須]タグ */
-form label .span{
-    color: red;
-    font-size: 0.9em;
-    margin-left: 4px;
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: flex; /* ラベルと必須タグを横並びにする */
+    align-items: center;
 }
 
-/* 入力欄(input, textarea, select)の共通スタイル */
+/* 必須ラベル (赤背景・白文字) */
+.required-label {
+    background-color: #d9534f; /* 赤色 */
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+/* 入力欄 (input, textarea, select) の共通スタイル */
 input[type="text"],
 input[type="email"],
 textarea,
 select {
-    width: 100%; /* 親要素の幅いっぱいに広げる */
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -36,30 +74,32 @@ select {
 /* ラジオボタンとチェックボックスのラベル */
 input[type="radio"],
 input[type="checkbox"] {
-    margin-right: 8px; /* ラベルとの間隔 */
+    margin-right: 8px;
 }
-form div label input { /* ラジオ・チェックボックスのラベルをインラインに戻す */
-    display: inline-block;
-}
-form div label span { /* ラジオ・チェックボックスの[必須]は非表示に */
-    display: none;
-}
-form div > label { /* ラジオ・チェックボックスの「親ラベル」は非表示 */
+/* ラジオ・チェックボックスのグループラベル (「カテゴリー」「プラン」) */
+form div > label {
     display: block;
+    margin-bottom: 12px;
+}
+/* 個別の選択肢ラベル */
+form div div label {
+    display: inline-block; /* 横並びにする */
+    font-weight: normal;
+    margin-right: 16px;
 }
 
 /* エラーメッセージ */
 .error-message {
-    color: red;
+    color: #d9534f; /* 赤色 */
     font-size: 0.9em;
-    margin-top: 4px;
+    margin-top: 6px;
     margin-bottom: 0;
 }
 
-/* ---確認画面テーブル--- */
+/* --- 3. 確認画面テーブル --- */
 .confirm-table {
     width: 100%;
-    border-collapse: collapse; /* セルの境界線を重ねる */
+    border-collapse: collapse;
     margin-bottom: 20px;
     border: 1px solid #ccc;
 }
@@ -72,53 +112,52 @@ form div > label { /* ラジオ・チェックボックスの「親ラベル」�
 }
 .confirm-table th {
     background-color: #f7f7f7;
-    width: 30%; /* ラベル列の幅 */
+    width: 30%;
     font-weight: bold;
 }
-
-/* お問い合わせ内容の改行を保持 */
 .confirm-table td[style*="pre-wrap"] {
     white-space: pre-wrap;
 }
 
-/* ---ボタン--- */
+/* --- 4. ボタン --- */
 .button-group {
-    margin-top: 24px;
+    margin-top: 32px;
     display: flex;
     justify-content: center;
-    gap: 16px; /* ボタン間のスペース */
+    gap: 16px;
 }
-.button-group button, 
+.button-group button,
 form button[type="submit"] {
     padding: 12px 24px;
     font-size: 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px; /* 角を少し丸くする */
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    font-weight: bold;
 }
 
 /* 戻るボタン */
 .back-button {
-    background-color: #eee;
-    color: #333;
+    background-color: #f0f0f0;
+    color: #555;
     border: 1px solid #ccc;
 }
 .back-button:hover {
-    background-color: #ddd;
+    background-color: #e0e0e0;
 }
 
 /* 送信・確認画面に進むボタン */
-.submit-button, 
+.submit-button,
 form button[type="submit"] {
-    background-color: #007dff; /* メインカラー(例：青) */
+    background-color: #5598d9; /* ヘッダーの青色と合わせる */
     color: white;
 }
-.submit-button:hover, 
+.submit-button:hover,
 form button[type="submit"]:hover {
-    background-color: #0056b3; /* 濃い青 */
+    background-color: #4a86c3; /* 少し濃い青 */
 }
 
 /* 完了画面のテキスト */
