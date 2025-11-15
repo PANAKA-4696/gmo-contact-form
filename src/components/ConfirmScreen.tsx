@@ -3,7 +3,7 @@ import type { ContactFormData } from "../types";
 //App.tsxから受け取りprops(引数)の型を定義します
 interface ConfirmScreenProps {
     formData: ContactFormData; //入力するフォームデータ
-    onBack: () => void; //「入力画面に戻る」ボタンが押されたときの関数
+    onEdit: () => void; //「入力画面に戻る」ボタンが押されたときの関数
     onSubmit: () => void; //「送信する」ボタンが押されたときの関数
 }
 
