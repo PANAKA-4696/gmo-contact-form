@@ -20,7 +20,6 @@ body {
 /* 入力画面の「白枠」コンテナ (...151503.png) */
 .page-content-boxed {
     max-width: 800px;
-    margin: 40px auto;
     padding: 32px 40px;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
@@ -38,7 +37,7 @@ body {
 .page-subtitle {
     color: #555;
     font-size: 0.9em;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     text-align: left; /* ★ご指摘の通り、左寄せ */
 }
 
