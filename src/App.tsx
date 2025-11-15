@@ -75,7 +75,7 @@ function App() {
   };
 
   //「送信する」ボタン用の関数を追加[cite: 97]
-  const handkeSubmitForm = () => {
+  const handleSubmitForm = () => {
     //TODO: ここでメール送信処理を実行する
     //(今回はフロントエンド課題のため、コンソールへの出力で代替)
     console.log('---フォーム送信実行---');
@@ -98,13 +98,19 @@ function App() {
   };
 
   return (
-    <div className="container">
-
+    // ↓↓↓ <div> を <React.Fragment> (または単に <>) に変更し、
+    //     グローバルの .container を削除します
+    <>
+      {/* 青いヘッダー部分 */}
+      <header className="app-header">
+        お問い合わせフォーム
+      </header>
+      {/* 各画面のコンテンツを.page-content(入力)または.confirm-container / .complete-container(確認・完了)で囲む */}
       {/* screen の状態が 'input' の場合に表示する内容 */}
       {screen === 'input' && (
-        <>
-          <h1>お問い合わせフォーム</h1>
-          <p>こちらは○○に関するお問い合わせフォームです。</p>
+        <div className="page-content">{/* 枠線・影付きコンテナ */}
+        <p>こちらは○○に関するお問い合わせフォームです。</p>
+          {/* <h1> と <p> はヘッダーと重複するため削除 */}
           {/* InputForm コンポーネントを呼び出し、必要な情報を渡す */}
           <InputForm 
             formData={formData}       // 現在の入力内容を props として渡す
@@ -113,37 +119,37 @@ function App() {
             //errors state をInputForm に渡します
             errors={errors}
           />
-        </>
+        </div>
       )}
 
       {/* confirm画面のTODOをConfirmScreenコンポーネントｂに置き換える */}
       {/* screen の状態が 'confirm' の場合に表示する内容 */}
       {screen === 'confirm' && (
-        <>
-          <h1>お問い合わせフォーム</h1>
+        <div className="confirm-container">{/* 枠線・影なしコンテナ */}
+          {/* <h1> はヘッダーと重複するため削除 */}
           <p>入力内容にお間違いないかご確認ください。</p>
           <ConfirmScreen
             formData={formData} //データを表示用に渡す
             onEdit={handleEdit} //「戻る」関数を渡す
-            onSubmit={handkeSubmitForm} //「送信」関数を渡す
+            onSubmit={handleSubmitForm} //「送信」関数を渡す
           />
-        </>
+        </div>
       )}
 
 
       {/* complete画面のTODOをCompleteScreenコンポーネントに置き換える */}
       {/* screen の状態が 'complete' の場合に表示する内容 */}
       {screen === 'complete' && (
-        <>
-          <h1>お問い合わせフォーム</h1>
+        <div className="complete-container">{/* 枠線・影なしコンテナ */}
+          {/* <h1> はヘッダーと重複するため削除 */}
           <p>お問い合わせが送信されました。</p>
           <CompleteScreen
             onReset={handleReset} //「入力画面に戻る」関数を渡す
           />
-        </>
+        </div>
       )}
 
-    </div>
+    </>
   );
 }
 
