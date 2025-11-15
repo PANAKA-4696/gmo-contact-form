@@ -1,64 +1,78 @@
 /* --- 1. グローバルと青いヘッダー --- */
 body {
     margin: 0;
-    font-family: sans-serif;
-    background-color: #f9f9f9; /* 背景を少しグレーに（任意） */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f9f9f9; /* わずかにグレーの背景 */
+    color: #333; /* 基本の文字色 */
 }
 
-/* 青色のタイトルバー */
+/* 青色のタイトルバー (ヘッダー) */
 .app-header {
-    background-color: #5598d9; /* PDFの青色を再現 */
+    background-color: #5598d9; /* スクリーンショットの青 */
     color: white;
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
     font-size: 1.5em; /* 24px */
     font-weight: bold;
 }
 
-/* 各画面のコンテンツを中央寄せするコンテナ */
-.page-content {
-    max-width: 700px; /* フォームの最大幅 */
-    margin: 40px auto; /* 上下にマージン・左右中央寄せ */
-    padding: 24px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* 確認画面・完了画面は白背景で、枠線・影なしにする */
-.confirm-container,
-.complete-container {
-    max-width: 700px;
+/* --- 2. ページコンテナの定義 --- */
+/* 入力画面の「白枠」コンテナ (...151503.png) */
+.page-content-boxed {
+    max-width: 800px;
     margin: 40px auto;
-    padding: 24px;
+    padding: 32px 40px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
 }
 
-/* --- 2. フォームのスタイル --- */
-form > div {
-    margin-bottom: 24px; /* 各項目の間隔を少し広げる */
+/* 確認・完了画面の「枠なし」コンテナ (...151518.png, ...151531.png) */
+.page-content-full {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 24px; /* 左右の余白だけ */
 }
 
-form label {
-    display: block;
+/* 各画面の「サブタイトル」 (こちらは○○...など) */
+.page-subtitle {
+    color: #555;
+    font-size: 0.9em;
+    margin-bottom: 32px;
+    text-align: left; /* ★ご指摘の通り、左寄せ */
+}
+
+/* --- 3. 入力フォームの「二列レイアウト」 (...151503.png) --- */
+.form-row {
+    display: flex;
+    margin-bottom: 24px;
+    align-items: flex-start;
+}
+
+.form-row label {
+    width: 180px;
+    padding-top: 10px;
     font-weight: bold;
-    margin-bottom: 8px;
-    display: flex; /* ラベルと必須タグを横並びにする */
+    display: flex;
     align-items: center;
+    flex-shrink: 0;
+}
+
+.form-row .input-field {
+    flex: 1;
 }
 
 /* 必須ラベル (赤背景・白文字) */
 .required-label {
-    background-color: #d9534f; /* 赤色 */
+    background-color: #d9534f;
     color: white;
     font-size: 12px;
     font-weight: bold;
-    padding: 2px 6px;
+    padding: 3px 8px;
     border-radius: 4px;
     margin-left: 8px;
 }
 
-/* 入力欄 (input, textarea, select) の共通スタイル */
 input[type="text"],
 input[type="email"],
 textarea,
@@ -67,59 +81,55 @@ select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* paddingを含めて幅100%にする */
+    box-sizing: border-box;
     font-size: 16px;
 }
+textarea {
+    min-height: 120px;
+}
 
-/* ラジオボタンとチェックボックスのラベル */
-input[type="radio"],
-input[type="checkbox"] {
+/* ラジオ・チェックのスタイル */
+.input-field div {
+    display: block;
+    margin-bottom: 10px;
+}
+.input-field label {
+    width: auto;
+    font-weight: normal;
+    padding-top: 0;
+}
+.input-field input[type="radio"],
+.input-field input[type="checkbox"] {
     margin-right: 8px;
 }
-/* ラジオ・チェックボックスのグループラベル (「カテゴリー」「プラン」) */
-form div > label {
-    display: block;
-    margin-bottom: 12px;
-}
-/* 個別の選択肢ラベル */
-form div div label {
-    display: inline-block; /* 横並びにする */
-    font-weight: normal;
-    margin-right: 16px;
-}
 
-/* エラーメッセージ */
 .error-message {
-    color: #d9534f; /* 赤色 */
+    color: #d9534f;
     font-size: 0.9em;
     margin-top: 6px;
-    margin-bottom: 0;
 }
 
-/* --- 3. 確認画面テーブル --- */
-.confirm-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+/* --- 4. 確認画面の「線ありリスト」 (...151518.png) --- */
+.confirm-list {
+    border-top: 1px solid #e0e0e0; /* ★ご指摘の通り、線を追加 */
 }
-.confirm-table th,
-.confirm-table td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: left;
-    vertical-align: top;
+.confirm-item {
+    display: flex;
+    padding: 20px 10px;
+    border-bottom: 1px solid #e0e0e0; /* ★ご指摘の通り、線を追加 */
+    align-items: flex-start;
 }
-.confirm-table th {
-    background-color: #f7f7f7;
-    width: 30%;
+.confirm-item-label {
+    width: 180px;
     font-weight: bold;
+    flex-shrink: 0;
 }
-.confirm-table td[style*="pre-wrap"] {
+.confirm-item-value {
+    flex: 1;
     white-space: pre-wrap;
 }
 
-/* --- 4. ボタン --- */
+/* --- 5. ボタン (...151503.png) --- */
 .button-group {
     margin-top: 32px;
     display: flex;
@@ -131,39 +141,39 @@ form button[type="submit"] {
     padding: 12px 24px;
     font-size: 16px;
     border: none;
-    border-radius: 8px; /* 角を少し丸くする */
+    border-radius: 99px; /* ピル形状（角を完全に丸く） */
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     text-align: center;
     font-weight: bold;
+    min-width: 200px;
 }
 
-/* 戻るボタン */
+/* 戻るボタン (グレー) */
 .back-button {
-    background-color: #f0f0f0;
-    color: #555;
-    border: 1px solid #ccc;
+    background-color: #d3d3d3;
+    color: #333;
 }
 .back-button:hover {
-    background-color: #e0e0e0;
+    background-color: #bbb;
 }
 
-/* 送信・確認画面に進むボタン */
+/* 送信・確認ボタン (青) */
 .submit-button,
 form button[type="submit"] {
-    background-color: #5598d9; /* ヘッダーの青色と合わせる */
+    background-color: #5598d9;
     color: white;
 }
 .submit-button:hover,
 form button[type="submit"]:hover {
-    background-color: #4a86c3; /* 少し濃い青 */
+    background-color: #4a86c3;
 }
 
-/* 完了画面のテキスト */
+/* --- 6. 完了画面のテキスト (...151531.png) --- */
 .complete-container p {
-    text-align: center;
+  /* ★ご指摘の通り、中央寄せを削除 (text-align: left;) */
     font-size: 1.1em;
     line-height: 1.6;
-    margin: 24px 0;
+    margin-bottom: 1em;
 }
