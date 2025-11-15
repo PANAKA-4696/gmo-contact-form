@@ -109,7 +109,7 @@ function App() {
       {/* screen の状態が 'input' の場合に表示する内容 */}
       {screen === 'input' && (
         <div className="page-content">{/* 枠線・影付きコンテナ */}
-        <p>こちらは○○に関するお問い合わせフォームです。</p>
+        <p className="page-subtitle">こちらは○○に関するお問い合わせフォームです。</p>
           {/* <h1> と <p> はヘッダーと重複するため削除 */}
           {/* InputForm コンポーネントを呼び出し、必要な情報を渡す */}
           <InputForm 
@@ -127,7 +127,6 @@ function App() {
       {screen === 'confirm' && (
         <div className="confirm-container">{/* 枠線・影なしコンテナ */}
           {/* <h1> はヘッダーと重複するため削除 */}
-          <p>入力内容にお間違いないかご確認ください。</p>
           <ConfirmScreen
             formData={formData} //データを表示用に渡す
             onEdit={handleEdit} //「戻る」関数を渡す
