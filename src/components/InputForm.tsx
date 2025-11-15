@@ -17,7 +17,7 @@ interface InputFormProps {
 
 //propsからerrorsを受け取ります
 //React.FC (Functional Component) 型を使い、props を受け取ります
-const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit }) => {
+const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, errors }) => {
     //サービスが変更されたときの副作用を定義します
     useEffect(() => {
         //サービスが変更されたら(特に「サービスA」→「サービスB」など)
