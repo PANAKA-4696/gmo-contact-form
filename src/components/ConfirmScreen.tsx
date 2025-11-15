@@ -12,40 +12,41 @@ const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmi
     const displayedPlans = formData.plans.join('・');
 
     return (
-        <div className="confirm-container">
-            {/* PDF (Page 6) [cite: 41]のデザインを参考に、テーブルで表示 */}
-            <table>
-                <tbody>
-                    <tr>
-                        <th>氏名</th>
-                        <td>{formData.name}</td>
-                    </tr>
-                    <tr>
-                        <th>メールアドレス</th>
-                        <td>{formData.email}</td>
-                    </tr>
-                    <tr>
-                        <th>サービス</th>
-                        <td>{formData.service}</td>
-                    </tr>
-                    <tr>
-                        <th>カテゴリー</th>
-                        <td>{formData.category}</td>
-                    </tr>
-                    <tr>
-                        <th>プラン</th>
-                        {/* プランが選択されていない場合も考慮 */}
-                        <td>{displayedPlans || '(選択なし)'}</td>
-                    </tr>
-                    <tr>
-                        <th>お問い合わせ内容</th>
-                        {/* 改行を<br>タグに変換して表示(任意・より新設) */}
-                        <td style={{ whiteSpace: 'pre-wrap' }}>{formData.content}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <>
+            <div className="confirm-list">
+                {/* 氏名 */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">氏名</div>
+                    <div className="confirm-item-value">{formData.name}</div>
+                </div>
+                {/* メールアドレス */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">メールアドレス</div>
+                    <div className="confirm-item-value">{formData.email}</div>
+                </div>
+                {/* サービス */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">サービス</div>
+                    <div className="confirm-item-value">{formData.service}</div>
+                </div>
+                {/* カテゴリー */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">カテゴリー</div>
+                    <div className="confirm-item-value">{formData.category}</div>
+                </div>
+                {/* プラン */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">プラン</div>
+                    <div className="confirm-item-value">{displayedPlans || '(選択なし)'}</div>
+                </div>
+                {/* お問い合わせ内容 */}
+                <div className="confirm-item">
+                    <div className="confirm-item-label">お問い合わせ内容</div>
+                    <div className="confirm-item-value">{formData.content}</div>
+                </div>
+            </div>
 
-            {/* ボタンエリア */}
+            {/* ボタンエリア (変更なし) */}
             <div className="button-group">
                 <button type="button" onClick={onEdit} className="back-button">
                     入力画面に戻る
@@ -54,7 +55,7 @@ const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmi
                     送信する
                 </button>
             </div>
-        </div>
+        </>
     );
 };
 

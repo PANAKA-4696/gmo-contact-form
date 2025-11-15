@@ -74,110 +74,118 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
     return (
         <form onSubmit={handleSubmit}>
             {/* 氏名 */}
-            <div>
-                <label>氏名 <span className='required-label'>必須</span></label>
-                <input 
-                type="text" 
-                name="name" //stateのキーと合わせる
-                value={formData.name} //stateと入力値を連動
-                onChange={handleChange} //入力されたら handleChange を呼ぶ
-                placeholder="山田太郎"
-                />
-
-                {/* エラーがあれば<p>タグで表示します */}
-                {errors.name && <p className="error-message">{errors.name}</p>}
+            <div className="form-row">
+                {/* ★修正★ 必須ラベルを追加 */}
+                <label>氏名 <span className="required-label">必須</span></label>
+                <div className="input-field">
+                    <input 
+                        type="text" 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="山田太郎"
+                    />
+                    {errors.name && <p className="error-message">{errors.name}</p>}
+                </div>
             </div>
 
             {/* メールアドレス */}
-            <div>
-                <label>メールアドレス <span className='required-label'>必須</span></label>
-                <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="mail@example.com"
-                />
-                {errors.email && <p className="error-message">{errors.email}</p>}
-            </div>
-
-            {/* サービス (ドロップダウン) を data.ts から動的に生成します */}
-            <div>
-                <label>サービス <span className='required-label'>必須</span></label>
-                <select name ="service" value={formData.service} onChange={handleChange}>
-                    <option value="">選択してください</option>
-
-                    {/* serviceNames配列を.map()で<option>タグに変換 */}
-                    {serviceNames.map((serviceName) => (
-                        <option key={serviceName} value={serviceName}>
-                            {serviceName}
-                        </option>
-                    ))}
-                </select>
-                {errors.service && <p className="error-message">{errors.service}</p>}
-            </div>
-
-            {/* カテゴリー (ラジオボタン) を動的に生成します */}
-            <div>
-                <label>カテゴリー <span className='required-label'>必須</span></label>
-                <div>
-                    {/* サービスが選択されていて(currentOptionsが存在し)、currentOptions.categories があれば、それを .map() でラジオボタンに変換 */}
-                    {currentOptions?.categories.map((category) => (
-                        <label key={category}>
-                            <input
-                            type="radio"
-                            name='category'
-                            value={category}
-                            checked={formData.category === category}
-                            onChange={handleChange}
-                            />
-                            {category}
-                        </label>
-                    ))}
-                    {/* サービスが未選択の場合の表示 (任意) */}
-                    {!formData.service && <p style={{ color: 'gray', margin: 0}}>サービスを選択してください</p>}
+            <div className="form-row">
+                {/* ★修正★ 必須ラベルを追加 */}
+                <label>メールアドレス <span className="required-label">必須</span></label>
+                <div className="input-field">
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="mail@example.com"
+                    />
+                    {errors.email && <p className="error-message">{errors.email}</p>}
                 </div>
-                {/* ラジオボタンはグループ全体で1つのエラーを表示 */}
-                {errors.category && <p className="error-message">{errors.category}</p>}
             </div>
 
-            {/* プラン (チェックボックス) を動的に生成します */}
-            <div>
-                <label>プラン</label>
-                <div>
-                    {/* カテゴリーと同様に、currentOptions.plansを.map()でチェックボックスに変換 */}
-                    {currentOptions?.plans.map((plan) => (
-                        <label key={plan}>
-                            <input
-                            type="checkbox"
-                            name='plans' //name属性はhandlePlanChangeでは使いませんが、フォーム要素として一応設定
-                            value={plan}
-                            checked={formData.plans.includes(plan)}
-                            onChange={handlePlanChange}
-                            />
-                            {plan}
-                        </label>
+            {/* サービス */}
+            <div className="form-row">
+                {/* ★修正★ 必須ラベルを追加 */}
+                <label>サービス <span className="required-label">必須</span></label>
+                <div className="input-field">
+                    <select name="service" value={formData.service} onChange={handleChange}>
+                        <option value="">選択してください</option>
+                        {serviceNames.map((serviceName) => (
+                            <option key={serviceName} value={serviceName}>
+                                {serviceName}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.service && <p className="error-message">{errors.service}</p>}
+                </div>
+            </div>
+
+            {/* カテゴリー */}
+            <div className="form-row">
+                {/* ★修正★ 必須ラベルを追加 */}
+                <label>カテゴリー <span className="required-label">必須</span></label>
+                <div className="input-field">
+                    {currentOptions?.categories.map((category) => (
+                        <div key={category}>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name='category'
+                                    value={category}
+                                    checked={formData.category === category}
+                                    onChange={handleChange}
+                                />
+                                {category}
+                            </label>
+                        </div>
                     ))}
-                    {/* サービスが未選択の場合の表示 (任意) */}
+                    {!formData.service && <p style={{ color: 'gray', margin: 0}}>サービスを選択してください</p>}
+                    {errors.category && <p className="error-message">{errors.category}</p>}
+                </div>
+            </div>
+
+            {/* プラン */}
+            <div className="form-row">
+                <label>プラン</label>
+                <div className="input-field">
+                    {currentOptions?.plans.map((plan) => (
+                        <div key={plan}>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name='plans'
+                                    value={plan}
+                                    checked={formData.plans.includes(plan)}
+                                    onChange={handlePlanChange}
+                                />
+                                {plan}
+                            </label>
+                        </div>
+                    ))}
                     {!formData.service && <p style={{ color: 'gray', margin: 0 }}>サービスを選択してください</p>}
                 </div>
             </div>
 
-            {/* お問い合わせ内容 [cite: 37] */}
-            <div>
-                <label>お問い合わせ内容 <span className='required-label'>必須</span></label>
-                <textarea
-                name="content"
-                value={formData.content}
-                onChange={handleChange}
-                placeholder="お問い合わせ内容をご記入ください。"
-                rows={5}
-                />
-                {errors.content && <p className="error-message">{errors.content}</p>}
+            {/* お問い合わせ内容 */}
+            <div className="form-row">
+                {/* ★修正★ 必須ラベルを追加 */}
+                <label>お問い合わせ内容 <span className="required-label">必須</span></label>
+                <div className="input-field">
+                    <textarea
+                        name="content"
+                        value={formData.content}
+                        onChange={handleChange}
+                        placeholder="お問い合わせ内容をご記入ください。"
+                        rows={5}
+                    />
+                    {errors.content && <p className="error-message">{errors.content}</p>}
+                </div>
             </div>
 
-            {/* 送信ボタン [cite: 38, 76] */}
-            <div>
+            {/* 送信ボタン */}
+            <div className="button-group">
                 <button type="submit">確認画面に進む</button>
             </div>
         </form>
