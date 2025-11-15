@@ -2,6 +2,8 @@ import { useState } from "react";
 import InputForm from './components/InputForm'; // InputForm をインポート
 //ConfirmScreenをインポート
 import ConfirmScreen from './components/ConfirmScreen';
+//CompleteScreenもインポート
+import CompleteScreen from './components/CompleteScreen';
 import type { FormErrors, ContactFormData } from './types'; // ContactFormData 型をインポート
 import './App.css'; // あとでCSSを当てるためにCSSファイルをインポート
 
@@ -85,6 +87,16 @@ function App() {
     setScreen('complete');
   };
   
+  //「完了画面から入力画面に戻る」処理を追加
+  const handleReset = () => {
+    //仕様通り、フォームデータを初期値に戻します
+    setFormData(initialFormData);
+    //エラーメッセージもリセットします
+    setErrors({});
+    //入力画面に遷移します
+    setScreen('input');
+  };
+
   return (
     <div className="container">
 
@@ -118,12 +130,16 @@ function App() {
         </>
       )}
 
+
+      {/* complete画面のTODOをCompleteScreenコンポーネントに置き換える */}
       {/* screen の状態が 'complete' の場合に表示する内容 */}
       {screen === 'complete' && (
         <>
           <h1>お問い合わせフォーム</h1>
           <p>お問い合わせが送信されました。</p>
-          {/* TODO: ここに <CompleteScreen /> コンポーネントを後で配置します */}
+          <CompleteScreen
+            onReset={handleReset} //「入力画面に戻る」関数を渡す
+          />
         </>
       )}
 
