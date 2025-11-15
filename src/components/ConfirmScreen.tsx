@@ -48,10 +48,10 @@ const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmi
             {/* ボタンエリア */}
             <div className="button-group">
                 <button type="button" onClick={onEdit} className="back-button">
-                    入力画面に戻る [cite: 42]
+                    入力画面に戻る
                 </button>
                 <button type="button" onClick={onSubmit} className="submit-button">
-                    送信する [cite: 43]
+                    送信する
                 </button>
             </div>
         </div>
