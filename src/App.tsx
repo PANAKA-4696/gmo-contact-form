@@ -1,5 +1,7 @@
 import { useState } from "react";
 import InputForm from './components/InputForm'; // InputForm をインポート
+//ConfirmScreenをインポート
+import ConfirmScreen from './components/ConfirmScreen';
 import type { FormErrors, ContactFormData } from './types'; // ContactFormData 型をインポート
 import './App.css'; // あとでCSSを当てるためにCSSファイルをインポート
 
@@ -63,6 +65,25 @@ function App() {
       console.log('Validation Failed. Errors:', errors); //バリデーション失敗時は何もしない（エラーメッセージが表示される）
     }
   };
+
+  //「入力画面に戻る」ボタン用の関数を追加
+  //(Stateを"input"に戻すだけ。formDataは保持される)
+  const handleEdit = () => {
+    setScreen('input');
+  };
+
+  //「送信する」ボタン用の関数を追加[cite: 97]
+  const handkeSubmitForm = () => {
+    //TODO: ここでメール送信処理を実行する
+    //(今回はフロントエンド課題のため、コンソールへの出力で代替)
+    console.log('---フォーム送信実行---');
+    console.log('送信先: rookies@gmo.jp(仮)');
+    console.log('送信データ:', formData);
+    console.log('---送信完了---');
+
+    //完了画面へ遷移
+    setScreen('complete');
+  };
   
   return (
     <div className="container">
@@ -83,12 +104,17 @@ function App() {
         </>
       )}
 
+      {/* confirm画面のTODOをConfirmScreenコンポーネントｂに置き換える */}
       {/* screen の状態が 'confirm' の場合に表示する内容 */}
       {screen === 'confirm' && (
         <>
           <h1>お問い合わせフォーム</h1>
           <p>入力内容にお間違いないかご確認ください。</p>
-          {/* TODO: ここに <ConfirmScreen /> コンポーネントを後で配置します */}
+          <ConfirmScreen
+            formData={formData} //データを表示用に渡す
+            onEdit={handleEdit} //「戻る」関数を渡す
+            onSubmit={handkeSubmitForm} //「送信」関数を渡す
+          />
         </>
       )}
 
