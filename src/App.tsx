@@ -108,15 +108,24 @@ function App() {
       {/* 2. 各画面のラッパーを変更 */}
       
       {screen === 'input' && (
-        <div className="page-content-boxed"> {/* 枠線・影付きコンテナ */}
+        <div className="page-content-full"> {/* 枠線・影付きコンテナ */}
           {/* ★修正★ <p> タグを復活させます */}
           <p className="page-subtitle">こちらは○○に関するお問い合わせフォームです。</p>
-          <InputForm 
-            formData={formData}
-            setFormData={setFormData}
-            onSubmit={handleConfirm}
-            errors={errors}
-          />
+          <form onSubmit={handleConfirm}>
+            <div className="page-content-boxed">
+              <InputForm 
+                formData={formData}
+                setFormData={setFormData}
+                // onSubmit={handleConfirm}
+                errors={errors}
+              />
+            </div>
+
+            {/* ボタンをここに配置 (枠の外) */}
+            <div className="button-group">
+              <button type="submit">確認画面に進む</button>
+            </div>
+          </form>
         </div>
       )}
 
