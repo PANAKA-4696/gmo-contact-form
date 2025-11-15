@@ -1,25 +1,68 @@
+/* アプリ全体のコンテナ(中央寄せ・幅設定) */
+.container {
+    max-width: 700px; /* フォームの最大幅 */
+    margin: 40px auto; /* 上下にマージン・左右中央寄せ */
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* フォームの格入力項目(div) */
+form > div {
+    margin-bottom: 20px; /* 各項目の間隔 */
+}
+
+/* ラベル内の[必須]タグ */
+form label .span{
+    color: red;
+    font-size: 0.9em;
+    margin-left: 4px;
+}
+
+/* 入力欄(input, textarea, select)の共通スタイル */
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    width: 100%; /* 親要素の幅いっぱいに広げる */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* paddingを含めて幅100%にする */
+    font-size: 16px;
+}
+
+/* ラジオボタンとチェックボックスのラベル */
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 8px; /* ラベルとの間隔 */
+}
+form div label input { /* ラジオ・チェックボックスのラベルをインラインに戻す */
+    display: inline-block;
+}
+form div label span { /* ラジオ・チェックボックスの[必須]は非表示に */
+    display: none;
+}
+form div > label { /* ラジオ・チェックボックスの「親ラベル」は非表示 */
+    display: block;
+}
+
+/* エラーメッセージ */
 .error-message {
-    color: red; /* エラーメッセージを赤色に */
+    color: red;
     font-size: 0.9em;
     margin-top: 4px;
     margin-bottom: 0;
 }
 
-/* エラーがある入力欄の枠線を赤くする (任意・少し高度) */
-/* InputForm.tsx で <input className={errors.name ? 'input-error' : ''} ... /> のようにクラス名を動的に追加する必要があります */
-.input-error {
-    border-color: red;
-    outline-color: red;
-}
-
-/* 確認画面テーブル */
+/* ---確認画面テーブル--- */
 .confirm-table {
     width: 100%;
-    border-collapse: collapse; /* 罫線を1本に */
-    margin-top: 20px;
+    border-collapse: collapse; /* セルの境界線を重ねる */
+    margin-bottom: 20px;
     border: 1px solid #ccc;
 }
-
 .confirm-table th,
 .confirm-table td {
     border: 1px solid #ccc;
@@ -27,28 +70,34 @@
     text-align: left;
     vertical-align: top;
 }
-
 .confirm-table th {
-    width: 30%; /* 見出しの幅を固定 */
     background-color: #f7f7f7;
+    width: 30%; /* ラベル列の幅 */
     font-weight: bold;
 }
 
-/* ボタンのグループ */
+/* お問い合わせ内容の改行を保持 */
+.confirm-table td[style*="pre-wrap"] {
+    white-space: pre-wrap;
+}
+
+/* ---ボタン--- */
 .button-group {
     margin-top: 24px;
     display: flex;
-    justify-content: center; /* 中央揃え */
-    gap: 16px; /* ボタンの間隔 */
+    justify-content: center;
+    gap: 16px; /* ボタン間のスペース */
 }
-
-/* 汎用ボタン（送信・戻る共通） */
-.button-group button {
+.button-group button, 
+form button[type="submit"] {
     padding: 12px 24px;
+    font-size: 16px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 /* 戻るボタン */
@@ -61,11 +110,21 @@
     background-color: #ddd;
 }
 
-/* 送信ボタン */
-.submit-button {
-    background-color: #007bff; /* メインカラー（例：青） */
+/* 送信・確認画面に進むボタン */
+.submit-button, 
+form button[type="submit"] {
+    background-color: #007dff; /* メインカラー(例：青) */
     color: white;
 }
-.submit-button:hover {
-    background-color: #0056b3;
+.submit-button:hover, 
+form button[type="submit"]:hover {
+    background-color: #0056b3; /* 濃い青 */
+}
+
+/* 完了画面のテキスト */
+.complete-container p {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 24px 0;
 }
