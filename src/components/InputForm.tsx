@@ -9,7 +9,7 @@ import { serviceOptions, serviceNames } from '../data';
 interface InputFormProps {
     formData: ContactFormData; //現在のフォームの入力内容
     setFormData: React.Dispatch<React.SetStateAction<ContactFormData>>; //フォームの内容を更新するための関数
-    onSubmit: () => void; //フォーム送信（確認画面へ進む）ボタンが押されたときに呼ぶ関数
+    // onSubmit: () => void; //フォーム送信（確認画面へ進む）ボタンが押されたときに呼ぶ関数
     
     //errorsをpropsとして受け取れるようにします。
     errors: FormErrors;
@@ -17,7 +17,7 @@ interface InputFormProps {
 
 //propsからerrorsを受け取ります
 //React.FC (Functional Component) 型を使い、props を受け取ります
-const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, errors }) => {
+const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, errors }) => {
     //サービスが変更されたときの副作用を定義します
     useEffect(() => {
         //サービスが変更されたら(特に「サービスA」→「サービスB」など)
@@ -61,18 +61,18 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
         });
     };
     
-    //フォームが送信されたときの処理
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); //フォーム送信によるページの再読み込みを防ぐ
-        onSubmit(); //App.tsx から渡された onSubmit 関数（バリデーション＆画面遷移）を呼び出す
-    };
+    // //フォームが送信されたときの処理
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault(); //フォーム送信によるページの再読み込みを防ぐ
+    //     onSubmit(); //App.tsx から渡された onSubmit 関数（バリデーション＆画面遷移）を呼び出す
+    // };
 
     //現在選択されているサービスに対応する選択肢を取得します
     //formData.service が"サービスA"など、有効なキーであることを型アサーションで伝えます。
     const currentOptions = serviceOptions[formData.service as keyof typeof serviceOptions];
 
     return (
-        <form onSubmit={handleSubmit}>
+        <>
             {/* 氏名 */}
             <div className="form-row">
                 {/* ★修正★ 必須ラベルを追加 */}
@@ -183,12 +183,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
                     {errors.content && <p className="error-message">{errors.content}</p>}
                 </div>
             </div>
-
-            {/* 送信ボタン */}
-            <div className="button-group">
-                <button type="submit">確認画面に進む</button>
-            </div>
-        </form>
+        </>
     );
 };
 
