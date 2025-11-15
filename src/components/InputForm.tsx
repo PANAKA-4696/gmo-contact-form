@@ -75,7 +75,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
         <form onSubmit={handleSubmit}>
             {/* 氏名 */}
             <div>
-                <label>氏名 <span>[必須]</span></label>
+                <label>氏名 <span className='required-label'>必須</span></label>
                 <input 
                 type="text" 
                 name="name" //stateのキーと合わせる
@@ -90,7 +90,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
 
             {/* メールアドレス */}
             <div>
-                <label>メールアドレス <span>[必須]</span></label>
+                <label>メールアドレス <span className='required-label'>必須</span></label>
                 <input
                 type="email"
                 name="email"
@@ -103,7 +103,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
 
             {/* サービス (ドロップダウン) を data.ts から動的に生成します */}
             <div>
-                <label>サービス <span>[必須]</span></label>
+                <label>サービス <span className='required-label'>必須</span></label>
                 <select name ="service" value={formData.service} onChange={handleChange}>
                     <option value="">選択してください</option>
 
@@ -119,7 +119,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
 
             {/* カテゴリー (ラジオボタン) を動的に生成します */}
             <div>
-                <label>カテゴリー <span>[必須]</span></label>
+                <label>カテゴリー <span className='required-label'>必須</span></label>
                 <div>
                     {/* サービスが選択されていて(currentOptionsが存在し)、currentOptions.categories があれば、それを .map() でラジオボタンに変換 */}
                     {currentOptions?.categories.map((category) => (
@@ -165,7 +165,7 @@ const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, onSubmit, 
 
             {/* お問い合わせ内容 [cite: 37] */}
             <div>
-                <label>お問い合わせ内容 <span>[必須]</span></label>
+                <label>お問い合わせ内容 <span className='required-label'>必須</span></label>
                 <textarea
                 name="content"
                 value={formData.content}
