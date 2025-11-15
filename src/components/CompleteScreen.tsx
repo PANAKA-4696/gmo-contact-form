@@ -7,7 +7,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onReset }) => {
     return (
         <div className="complete-container">
             {/* ★修正★ お手本に合わせてテキストを修正 */}
-            <p>
+            <p style={{fontWeight: 'bold' }}>
                 お問い合わせが送信されました。
             </p>
             <p>
