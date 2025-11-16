@@ -58,7 +58,11 @@ function App() {
   };
 
   //確認画面に進むときの処理[cite: 77]
-  const handleConfirm = () => {
+  //(e: React.FormEvent<HTMLFormElement>) を引数に追加
+  const handleConfirm = (e: React.FormEvent<HTMLFormElement>) => {
+    //e.preventDefault() を呼び出し、リロードを防ぐ
+    e.preventDefault();
+
     //バリデーションを実行し、成功(true)した場合のみ画面遷移
     if (validateForm()) {
       console.log('Validation OK. Form Data:', formData); //デバッグ用にコンソールに出力
