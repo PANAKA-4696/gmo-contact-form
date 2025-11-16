@@ -1,5 +1,5 @@
-//useEffectをreactからインポートします。
-import { useEffect } from 'react';
+//useEffectとuseRefをreactからインポートします。
+import { useEffect, useRef } from 'react';
 //フォームのデータ型をインポートします FormErrors型をインポートします
 import type { ContactFormData, FormErrors } from '../types';
 //作成したデータファイルをインポートします
@@ -18,15 +18,27 @@ interface InputFormProps {
 //propsからerrorsを受け取ります
 //React.FC (Functional Component) 型を使い、props を受け取ります
 const InputForm: React.FC<InputFormProps> = ({ formData, setFormData, errors }) => {
+    //「前の service の値」を保持するための ref を作成
+    const prevServiceRef = useRef(formData.service)
+
     //サービスが変更されたときの副作用を定義します
     useEffect(() => {
-        //サービスが変更されたら(特に「サービスA」→「サービスB」など)
-        //関連するカテゴリーとプランの選択をリセットする
-        setFormData((prevData) => ({
-            ...prevData,
-            category: '',//カテゴリーをリセット
-            plans: [],//プランをリセット
-        }));
+        //「前の service の値」と「現在の service の値」を比較
+        //(この2つが異なる ＝ ユーザーがサービスを変更した時だけ)
+        if (prevServiceRef.current != formData.service) {
+            //リセット処理を実行
+            //サービスが変更されたら(特に「サービスA」→「サービスB」など)
+            //関連するカテゴリーとプランの選択をリセットする
+            setFormData((prevData) => ({
+                ...prevData,
+                category: '',//カテゴリーをリセット
+                plans: [],//プランをリセット
+            }));
+        }
+
+        //処理の最後に「前の値」を「今の値」に更新し、次の変更に備える
+        prevServiceRef.current = formData.service;
+
     //formData.serviceが変更されるたびに、この中が実行される
     },[formData.service, setFormData]); //setFormDataも依存配列に追加しておく(ESLint推奨)
 
