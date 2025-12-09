@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# お問い合わせフォーム (Contact Form)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GMOインターネット社 / [新卒ジョブ型No.1採用] 27卒 フロントエンドエンジニア選考課題の成果物です。
+React と TypeScript を使用して実装した、3画面構成（入力・確認・完了）のお問い合わせフォームアプリケーションです。
 
-Currently, two official plugins are available:
+## 🚀 デモ (Live Demo)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+以下のURLから実際の動作を確認できます。
+**[https://gmo-contact-form.vercel.app/](https://gmo-contact-form.vercel.app/)**
 
-## React Compiler
+## ✨ 機能一覧
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **3画面構成のSPA:** ページリロードのないスムーズな画面遷移（入力 → 確認 → 完了）。
+* **動的な選択肢制御:** 選択された「サービス」に応じて、「カテゴリー」と「プラン」の選択肢が自動的に切り替わります。
+* **入力バリデーション:**
+    * 必須項目のチェック
+    * メールアドレス形式の正規表現チェック
+    * 文字数制限（100文字以内）
+    * リアルタイムのエラーメッセージ表示
+* **データ保持とリセット:**
+    * 確認画面から「戻る」ボタン押下時：入力内容を保持。
+    * 完了画面から「戻る」ボタン押下時：全データを初期化。
+* **UIデザインの再現:** 課題要件のスクリーンショットに基づき、青色ヘッダー、二列レイアウト、ボタン形状などをCSSで厳密に再現。
 
-## Expanding the ESLint configuration
+## 🛠 使用技術 (Tech Stack)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Framework:** React 18
+* **Language:** TypeScript
+* **Build Tool:** Vite
+* **Hosting:** Vercel
+* **Version Control:** Git / GitHub
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 💻 ローカルでの実行方法
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+手元の環境で動作確認を行う場合は、以下の手順を実行してください。
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 1. リポジトリのクローン
+```bash
+git clone [https://github.com/PANAKA-4696/gmo-contact-form.git](https://github.com/PANAKA-4696/gmo-contact-form.git)
+cd gmo-contact-form
