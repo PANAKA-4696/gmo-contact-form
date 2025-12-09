@@ -138,20 +138,15 @@ function App() {
       {/* 2. 各画面のラッパーを変更 */}
       
       {screen === 'input' && (
-        <div className="page-content-full"> {/* 枠線・影付きコンテナ */}
-          {/* ★修正★ <p> タグを復活させます */}
+        <div className="page-content-boxed">
           <p className="page-subtitle">こちらは○○に関するお問い合わせフォームです。</p>
           <form onSubmit={handleConfirm}>
-            <div style={{ display: 'none' }}>
-              <InputForm
-                formData={formData}
-                setFormData={setFormData}
-                // onSubmit={handleConfirm}
-                errors={errors}
-              />
-            </div>
-
-            {/* ボタンをここに配置 (枠の外) */}
+            <InputForm
+              formData={formData}
+              setFormData={setFormData}
+              errors={errors}
+            />
+          
             <div className="button-group">
               <button type="submit">確認画面に進む</button>
             </div>
@@ -167,6 +162,7 @@ function App() {
             formData={formData}
             onEdit={handleEdit}
             onSubmit={handleSubmitForm} // ← タイプミス修正を反映
+            isLoading={isLoading}
           />
         </div>
       )}
