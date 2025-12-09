@@ -5,9 +5,10 @@ interface ConfirmScreenProps {
     formData: ContactFormData; //入力するフォームデータ
     onEdit: () => void; //「入力画面に戻る」ボタンが押されたときの関数
     onSubmit: () => void; //「送信する」ボタンが押されたときの関数
+    isLoading: boolean;
 }
 
-const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmit }) => {
+const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmit, isLoading }) => {
     //プランの配列を「・」で連結して表示する(例: "・プランa・プランb")[cite: 91]
     const displayedPlans = formData.plans.join('・');
 
@@ -51,8 +52,8 @@ const ConfirmScreen: React.FC<ConfirmScreenProps> = ({ formData, onEdit, onSubmi
                 <button type="button" onClick={onEdit} className="back-button">
                     入力画面に戻る
                 </button>
-                <button type="button" onClick={onSubmit} className="submit-button">
-                    送信する
+                <button type="button" onClick={onSubmit} className="submit-button" disabled={isLoading}>
+                    {isLoading ? '送信中...' : '送信する'}
                 </button>
             </div>
         </>
