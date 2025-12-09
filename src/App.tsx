@@ -1,4 +1,6 @@
 import { useState } from "react";
+//EmailJSをインポート
+import emailjs from '@emailjs/browser';
 import InputForm from './components/InputForm'; // InputForm をインポート
 //ConfirmScreenをインポート
 import ConfirmScreen from './components/ConfirmScreen';
@@ -29,6 +31,9 @@ function App() {
 
   //エラーメッセージを保持するためのstateを追加します
   const [errors, setErrors] = useState<FormErrors>({});
+
+  //送信中のローディング状態
+  const [isLoading, setIsLoading] = useState(false);
 
   //バリデーションを実行する関数を作成します
   const validateForm = (): boolean => {
@@ -79,16 +84,37 @@ function App() {
   };
 
   //「送信する」ボタン用の関数を追加[cite: 97]
-  const handleSubmitForm = () => {
-    //TODO: ここでメール送信処理を実行する
-    //(今回はフロントエンド課題のため、コンソールへの出力で代替)
-    console.log('---フォーム送信実行---');
-    console.log('送信先: rookies@gmo.jp(仮)');
-    console.log('送信データ:', formData);
-    console.log('---送信完了---');
+  const handleSubmitForm = async () => {
+    setIsLoading(true); //ローディング開始
 
-    //完了画面へ遷移
-    setScreen('complete');
+    //EmailJSに送るためのパラメータを作成
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      service: formData.service,
+      category: formData.category,
+      plans: formData.plans.join('・'), // 配列を文字列に変換
+      content: formData.content,
+    };
+
+    try {
+      //EmailJSで送信(IDは自分のものに書き換える)
+      await emailjs.send(
+        'YOUR_SERVICE_ID', //ここにService ID
+        'YOUR_TEMPLATE_ID', //ここにTemplate ID
+        templateParams,
+        'YOUR_PUBLIC_KEY' //ここにPublic Key
+      );
+
+      console.log("送信成功");
+      setScreen("complete"); //完了画面へ
+
+    } catch(error){
+      console.error('送信失敗:', error);
+      alert('送信に失敗しました。時間をおいて再度お試しください。');
+    } finally {
+      setIsLoading(false); //ローディング終了
+    }
   };
   
   //「完了画面から入力画面に戻る」処理を追加
@@ -116,8 +142,8 @@ function App() {
           {/* ★修正★ <p> タグを復活させます */}
           <p className="page-subtitle">こちらは○○に関するお問い合わせフォームです。</p>
           <form onSubmit={handleConfirm}>
-            <div className="page-content-boxed">
-              <InputForm 
+            <div style={{ display: 'none' }}>
+              <InputForm
                 formData={formData}
                 setFormData={setFormData}
                 // onSubmit={handleConfirm}
